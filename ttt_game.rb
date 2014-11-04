@@ -17,7 +17,17 @@ class GameTable
     end
     
     def win
-         
+        res = false
+        @table.each_key do|k|
+            @table[k].each_value do|v|
+                res =  v==@@turn ? true:false
+            end
+            if res == true
+                return res
+            end
+        end
+
+        return res
     end
 end
 
@@ -43,10 +53,8 @@ end
 text = GameTable.new
 draw = Draw.new(text.table)
 draw.print_table
-
-p1 = gets.chomp
-text.move(p1)
-draw.print_table
-p1 = gets.chomp
-text.move(p1)
-draw.print_table
+begin
+    p1 = gets.chomp
+    text.move(p1)
+    draw.print_table
+end until text.win
